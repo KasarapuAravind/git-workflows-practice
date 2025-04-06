@@ -2,9 +2,6 @@ name: First workflow
 run-name: this is first workflow running on ${{ github.event.inputs.environment }}
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       environment: 
