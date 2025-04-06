@@ -21,4 +21,11 @@ jobs:
       
       - name: Build app
         run: echo "Building with Java ${{ matrix.java-version }}"
+      
+      - name: print git inbuilt env vars
+        run: |
+          echo "$GITHUB_REF"
+          echo "$GITHUB_REPOSITORY"
+          echo "$GITHUB_SHA"
+        shell: bash
 
