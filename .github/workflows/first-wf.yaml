@@ -14,8 +14,6 @@ on:
 permissions:
   contents: read
 
-environment: ${{ github.event.inputs.environment }}
-
 jobs:
   test-job:
     name: 'test job'
