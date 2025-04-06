@@ -17,7 +17,7 @@ permissions:
 jobs:
   test-job:
     name: 'test job'
-    if: ${{ github.ref == 'refs/head/main'}}
+    if: ${{ github.ref == 'refs/heads/main'}}
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     defaults:
@@ -28,9 +28,9 @@ jobs:
       - name: printing
         id: print 
         run: |
-          if [[ ${{ github.event.inputs.environment }} == 'dev' ]]; then
+          if [[ "${{ github.event.inputs.environment }}" == 'dev' ]]; then
             echo "result=it is dev env" >> $GITHUB_OUTPUT
-          elif [[ ${{ github.event.inputs.environment }} == 'test' ]]; then
+          elif [[ "${{ github.event.inputs.environment }}" == 'test' ]]; then
             echo "result=it is test env" >> $GITHUB_OUTPUT
           else
             echo "result=it is prod env" >> $GITHUB_OUTPUT
