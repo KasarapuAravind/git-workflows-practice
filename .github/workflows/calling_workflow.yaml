@@ -1,0 +1,23 @@
+name: calling workflow
+run-name: calling workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description:  select environment
+        type: choice
+        default: 'dev'
+        required: true
+        options: ['dev', 'test', 'prod']
+
+permissions:
+  contents: read
+
+jobs:
+  call-reusable-workflow:
+    name: call reusable workflow
+    uses: ./.github/workflows/reusable-workflow
+    with:
+      environment: ${{ github.event.inputs.environment }}
+

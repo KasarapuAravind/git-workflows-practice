@@ -2,14 +2,11 @@ name: First workflow
 run-name: this is first workflow running on ${{ github.event.inputs.environment }}
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment: 
-        required: true
-        default: 'dev'
-        type: choice
-        options: ['dev', 'test', 'prod']
-        description: select environment
+  workflow_call:
+    environment: 
+      required: true
+      default: 'dev'
+      type: string
 
 permissions:
   contents: read
@@ -19,7 +16,7 @@ jobs:
     name: 'test job'
     if: ${{ github.ref == 'refs/heads/main'}}
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
+    environment: ${{ inputs.environment }}
     defaults:
       run:
         shell: bash
@@ -28,9 +25,9 @@ jobs:
       - name: printing
         id: print 
         run: |
-          if [[ "${{ github.event.inputs.environment }}" == 'dev' ]]; then
+          if [[ "${{ inputs.environment }}" == 'dev' ]]; then
             echo "result=it is dev env" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event.inputs.environment }}" == 'test' ]]; then
+          elif [[ "${{ inputs.environment }}" == 'test' ]]; then
             echo "result=it is test env" >> $GITHUB_OUTPUT
           else
             echo "result=it is prod env" >> $GITHUB_OUTPUT
