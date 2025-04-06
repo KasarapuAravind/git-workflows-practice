@@ -1,0 +1,46 @@
+name: First workflow
+run-name: this is first workflow running on ${{ github.event.inputs.environment }}
+
+on:
+  push:
+    branches:
+      - main
+  workflow-dispatch:
+    inputs:
+      environment: 
+        required: true
+        default: 'dev'
+        type: choice
+        options: ['dev', 'test', 'prod']
+        description: select environment
+
+permissions:
+  contents: read
+
+environment: ${{ github.event.inputs.environment }}
+
+jobs:
+  test-job:
+    name: 'test job'
+    if: ${{ github.ref == 'refs/head/main'}}
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    defaults:
+      run:
+        shell: bash
+    
+    steps:
+      - name: printing
+        id: print 
+        run: |
+          if [[ ${{ github.event.inputs.environment }} == 'dev' ]]; then
+            echo "result=it is dev env" >> $GITHUB_OUTPUT
+          elif [[ ${{ github.event.inputs.environment }} == 'test' ]]; then
+            echo "result=it is test env" >> $GITHUB_OUTPUT
+          else
+            echo "result=it is prod env" >> $GITHUB_OUTPUT
+          fi
+      - name: validation
+        if: steps.print.outputs.result == 'it is dev env'
+        run: |
+          echo "previous step is in dev, so i'm executing step2" 
