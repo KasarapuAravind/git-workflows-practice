@@ -4,6 +4,10 @@ run-name: Matrix strategy workflow run
 on:
   workflow_dispatch:
 
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   install-java:
     name: install java
@@ -11,7 +15,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        java-version: [8, 11, 17]
+        java-version: [11, 17]
     steps: 
       - name: setup java
         uses: actions/setup-java@v4
