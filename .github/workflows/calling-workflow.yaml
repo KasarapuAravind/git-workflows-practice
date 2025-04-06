@@ -17,7 +17,7 @@ permissions:
 jobs:
   call-reusable-workflow:
     name: call reusable workflow
-    uses: ./.github/workflows/reusable-workflow
+    uses: ./.github/workflows/reusable-workflow.yaml
     with:
       environment: ${{ github.event.inputs.environment }}
 
