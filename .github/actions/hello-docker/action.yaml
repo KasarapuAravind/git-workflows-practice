@@ -1,0 +1,15 @@
+name: simple docker action
+description: it is docker action example
+
+inputs:
+  who-to-greet:
+    default: nobody
+    required: true
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  # entrypoint: 
+  args:
+    - ${{ inputs.who-to-greet }}
+  
