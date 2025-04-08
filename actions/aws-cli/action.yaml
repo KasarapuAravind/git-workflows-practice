@@ -1,0 +1,21 @@
+name: install aws cli
+inputs:
+outputs:
+
+runs:
+  using: composite
+  steps:
+    - name: install aws cli
+      shell: bash
+      run: |
+        ARCH = $(uname -m )
+
+        if [[ $ARCH = "arch64"]] || [[ $ARCH = "arm64"]]; then
+          DOWNLOAD_URL = https: aws
+        else
+        fi
+
+        curl $DOWNLOAD_URL -o "awscli.zip"
+        unzip 
+        sudo ./awscli/aws/install
+  

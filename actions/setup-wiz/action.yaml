@@ -1,0 +1,13 @@
+name: setup wizcli
+
+inputs:
+  wizclientid:
+    required: true
+  wizsecretid:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: setup wiz cli on Linux/windows
+      if: runner.os

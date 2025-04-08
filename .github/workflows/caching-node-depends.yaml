@@ -1,0 +1,37 @@
+name: caching and artifacts
+on :
+  workflow_dispatch:
+
+jobs:
+  artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup maven
+        uses: actions/setup-maven@v5
+        with:
+          maven-version: 3.9.3
+      
+      - name: setup java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'zulu'
+          server-id: arv-maven-repo
+          server-username: ${{ secrets.JFROG_USERNAME }}
+          server-password: ${{ secrets.JFROG_PASSWORD }}
+          settings-path: ${{ github.workspace }}
+
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: checkout
+        use: actions/checkout@v4
+      
+            
+
+        
