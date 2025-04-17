@@ -1,0 +1,20 @@
+name: composite checkout ex
+
+on:
+  workflow_dispatch:
+jobs:
+  composite-checkout: 
+    name: composite-checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with: 
+          repository: mydifforg/repo
+          ref: main
+          fetch-depth: 0
+          token: sometoken
+          path: main
+
+
+
