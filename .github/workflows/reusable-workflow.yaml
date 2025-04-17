@@ -2,6 +2,13 @@ name: Reusable workflow
 run-name: this is first workflow running on ${{ github.event.inputs.environment }}
 
 on:
+  push:
+    branches: [main, feature]
+    paths:
+      - src/**
+      - Dockerfile
+    paths-ignore:
+      
   workflow_call:
     inputs:
       environment: 
